@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,15 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import swal from 'sweetalert';
+
+import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 const SignIn = () => {
   let navigate = useNavigate();
+  const [signinMessage, setSigninpMessage] = useState('');
+
+  signinMessage && swal(signinMessage);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -35,10 +41,11 @@ const SignIn = () => {
             'Auth Token',
             response._tokenResponse.refreshToken
           );
-          console.log(response);
+          console.log('111dsfdfgfhg--->', response);
         })
         .catch((error) => {
-          console.log(error);
+          setSigninpMessage(mapAuthCodeToMessage(error?.code));
+          console.log('in catch');
         });
     },
   });
@@ -89,6 +96,11 @@ const SignIn = () => {
             {formik.errors.password}
           </div>
         ) : null}
+        {/* {signinMessage && (
+          <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
+            {signinMessage}
+          </div>
+        )} */}
 
         <Button type='submit' className='mt-3'>
           Submit

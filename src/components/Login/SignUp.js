@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../firebase-config';
 import { Form, Button } from 'react-bootstrap';
+import swal from 'sweetalert';
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
+
 import PageSetting from '../Layout/PageSetting';
 
 const SignUp = () => {
   let navigate = useNavigate();
+  const [signUpMessage, setSignUpMessage] = useState('');
+
+  signUpMessage && swal(signUpMessage);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -41,10 +47,10 @@ const SignUp = () => {
             'Auth Token',
             response._tokenResponse.refreshToken
           );
-          console.log(response);
+          // console.log('response', response);
         })
         .catch((error) => {
-          console.log(error);
+          setSignUpMessage(mapAuthCodeToMessage(error?.code));
         });
     },
   });
@@ -93,7 +99,11 @@ const SignUp = () => {
             {formik.errors.password}
           </div>
         ) : null}
-
+        {/* {signUpMessage && (
+          <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
+            {signUpMessage}
+          </div>
+        )} */}
         <Button type='submit' className='mt-3'>
           Submit
         </Button>
