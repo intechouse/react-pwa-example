@@ -87,7 +87,7 @@ const SignUp = () => {
           value={formik.values.password}
         /> */}
         {formik.touched.password && formik.errors.password ? (
-          <div>{formik.errors.password}j</div>
+          <div>{formik.errors.password}</div>
         ) : null}
 
         <Button type="submit">Submit</Button>
