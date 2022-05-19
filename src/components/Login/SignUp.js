@@ -4,7 +4,9 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import swal from 'sweetalert';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+import { auth } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 import PageSetting from '../Layout/PageSetting';
@@ -29,19 +31,13 @@ const SignUp = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
-      const authentication = getAuth();
-      createUserWithEmailAndPassword(
-        authentication,
-        values.email,
-        values.password
-      )
+      createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((response) => {
           navigate('/login', { replace: true });
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
           );
-          // console.log('response', response);
         })
         .catch((error) => {
           setSignUpMessage(mapAuthCodeToMessage(error?.code));
