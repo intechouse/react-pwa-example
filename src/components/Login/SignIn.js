@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../../firebase-config';
 import PageSetting from '../Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
 
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';

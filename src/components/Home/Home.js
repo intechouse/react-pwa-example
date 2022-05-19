@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   let navigate = useNavigate();
   let bool = true;
   const [logOut, setLogOut] = useState(bool);
-  let authToken = sessionStorage.getItem("Auth Token");
-  console.log("authToken", authToken);
+  let authToken = sessionStorage.getItem('Auth Token');
+  console.log('authToken', authToken);
+
   //let authToken = sessionStorage.getItem("Auth Token");
   useEffect(() => {
-    console.log("authToken", authToken);
+    console.log('authToken', authToken);
     console.log('run');
     if (authToken) {
-      navigate("/home");
+      navigate('/home');
     }
 
     if (!authToken) {
-      navigate("/login");
+      navigate('/login');
     }
   }, [logOut]);
+
   return (
     <div>
       Home
       <Button
         onClick={() => {
-          sessionStorage.removeItem("Auth Token");
+          sessionStorage.removeItem('Auth Token');
           setLogOut(!bool);
         }}
       >
