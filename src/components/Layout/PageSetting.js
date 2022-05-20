@@ -11,7 +11,7 @@ const PageSetting = ({ children, pageName }) => {
       >
         <Row>
           <Col sm={8} xs={8}></Col>
-          <Col sm={4} xs={12}>
+          <Col sm={12} md={4} xs={12}>
             <Card className='mt-5 p-3' style={{ height: '80vh' }}>
               <Card.Title>
                 <h1>{pageName}</h1>

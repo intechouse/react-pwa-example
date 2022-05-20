@@ -6,6 +6,7 @@ import PageSetting from '../Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
+import { fireBaseSignIn } from '../../services/auth';
 
 import { auth } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
@@ -27,21 +28,17 @@ const SignIn = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
-      signInWithEmailAndPassword(auth, values.email, values.password)
+      fireBaseSignIn(auth, values.email, values.password)
         .then((response) => {
-          console.log('SignIn Success: ', response);
           navigate('/', { replace: true });
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
           );
-          console.log('111dsfdfgfhg--->', response);
         })
         .catch((error) => {
-          console.log('SignIn Error: ', error);
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
           signinMessage && swal(signinMessage);
-          console.log('in catch');
         });
     },
   });
