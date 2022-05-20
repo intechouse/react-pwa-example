@@ -3,10 +3,10 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar = ({ children }) => {
+  let bool = true;
   const [logOut, setLogOut] = useState(bool);
   let navigate = useNavigate();
   let authToken = sessionStorage.getItem('Auth Token');
-  let bool = true;
 
   useEffect(() => {
     if (!authToken) {
