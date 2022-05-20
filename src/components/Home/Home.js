@@ -9,32 +9,17 @@ const Home = () => {
   let authToken = sessionStorage.getItem('Auth Token');
   console.log('authToken', authToken);
 
-  //let authToken = sessionStorage.getItem("Auth Token");
   useEffect(() => {
-    console.log('authToken', authToken);
-    console.log('run');
     if (authToken) {
-      navigate('/home');
+      navigate('/feed');
     }
 
     if (!authToken) {
       navigate('/login');
     }
-  }, [logOut]);
+  }, []);
 
-  return (
-    <div>
-      Home
-      <Button
-        onClick={() => {
-          sessionStorage.removeItem('Auth Token');
-          setLogOut(!bool);
-        }}
-      >
-        LogOut
-      </Button>
-    </div>
-  );
+  return <div>Feed</div>;
 };
 
 export default Home;
