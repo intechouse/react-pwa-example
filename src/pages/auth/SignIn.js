@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import PageSetting from '../Layout/PageSetting';
+import PageSetting from '../../components/Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
@@ -95,9 +95,12 @@ const SignIn = () => {
           </div>
         )} */}
 
-        <Button type='submit' className='mt-3'>
-          Submit
+        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
+          Sign In
         </Button>
+        <a href='/register' className='d-flex justify-content-end'>
+          SignUp
+        </a>
       </form>
     </PageSetting>
   );
