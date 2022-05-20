@@ -11,7 +11,6 @@ new Promise((resolve, reject) => {
       reject(e);
     });
 });
-
 export const fireBaseSignIn = (auth, email, password) =>
   new Promise((resolve, reject) => {
      signInWithEmailAndPassword(auth, email, password) 

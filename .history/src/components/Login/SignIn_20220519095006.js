@@ -35,10 +35,13 @@ const SignIn = () => {
             'Auth Token',
             response._tokenResponse.refreshToken
           );
+          console.log('111dsfdfgfhg--->', response);
         })
         .catch((error) => {
+          console.log('SignIn Error: ', error);
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
           signinMessage && swal(signinMessage);
+          console.log('in catch');
         });
     },
   });

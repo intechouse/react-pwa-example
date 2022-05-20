@@ -39,6 +39,7 @@ const SignIn = () => {
         .catch((error) => {
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
           signinMessage && swal(signinMessage);
+          console.log('in catch');
         });
     },
   });

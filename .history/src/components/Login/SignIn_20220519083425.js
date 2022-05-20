@@ -4,17 +4,16 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import PageSetting from '../Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
-import { fireBaseSignIn } from '../../services/auth';
 
-import { auth } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 const SignIn = () => {
   let navigate = useNavigate();
   const [signinMessage, setSigninpMessage] = useState('');
 
+  signinMessage && swal(signinMessage);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -28,17 +27,20 @@ const SignIn = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
-      fireBaseSignIn(auth, values.email, values.password)
+      alert(JSON.stringify(values, null, 2));
+      const authentication = getAuth();
+      signInWithEmailAndPassword(authentication, values.email, values.password)
         .then((response) => {
           navigate('/', { replace: true });
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
           );
+          console.log('111dsfdfgfhg--->', response);
         })
         .catch((error) => {
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
-          signinMessage && swal(signinMessage);
+          console.log('in catch');
         });
     },
   });
