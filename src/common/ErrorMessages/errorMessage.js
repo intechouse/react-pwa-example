@@ -17,6 +17,9 @@ const mapAuthCodeToMessage = (authCode) => {
 
     case 'auth/email-already-in-use':
       return 'Email already in use.';
+
+    case 'auth/invalid-email':
+      return 'Email already in use.';
     // Many more authCode mapping here...
 
     default:
