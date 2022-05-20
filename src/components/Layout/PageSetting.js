@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Col, Row, Card } from 'react-bootstrap';
+
 const PageSetting = ({ children, pageName }) => {
   return (
     <>
