@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { collection, addDoc } from 'firebase/firestore';
 
-import { db, auth } from '../../firebase-config';
+import { db } from '../../firebase-config';
 
 const FeedPostCard = () => {
   const [userId, setUserId] = useState();
@@ -19,7 +19,7 @@ const FeedPostCard = () => {
   useEffect(() => {
     setUserId(localStorage.getItem('userCredentials'));
   }, []);
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     addDoc(collection(db, 'feed'), {
       feed: values.feed,
       uid: userId.split` `[0],
@@ -28,6 +28,7 @@ const FeedPostCard = () => {
     })
       .then((data) => {})
       .catch((e) => console.log('error'));
+    resetForm();
   };
 
   const formik = useFormik({

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { collection, getDocs } from 'firebase/firestore';
+import { Container, Row, Col } from 'react-bootstrap';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase-config';
 import FeedPostCard from './FeedPostCard';
@@ -13,26 +12,27 @@ const FeedComponennt = (props) => {
   const uid = localStorage.getItem('uid');
 
   const getData = async () => {
-    let ls = [];
-    let uls = [];
-    const querySnapshot = await getDocs(collection(db, 'feed'));
-
-    querySnapshot.forEach((doc) => {
-      ls.push(doc.data());
-      if (uid === doc.data()?.uid) {
-        uls.push(doc.data());
-      }
+    onSnapshot(query(collection(db, 'feed')), (querySnapshot) => {
+      const feeds = [];
+      const myFeeds = [];
+      querySnapshot.forEach((doc) => {
+        feeds.push(doc.data());
+        if (uid === doc.data()?.uid) {
+          myFeeds.push(doc.data());
+        }
+      });
+      setFeedList(feeds);
+      setMyFeedList(myFeeds);
     });
-    setFeedList(ls);
-    setMyFeedList(uls);
   };
+
   useEffect(() => {
     getData();
   }, []);
   console.log('Feed data', feedList);
   return (
     <>
-      <Container className=' vh-100 ' fluid>
+      <Container className=' vh-100 ' fluid style={{ paddingTop: '50px' }}>
         <Row className='d-flex justify-content-center'>
           <Col sm={12} xs={12} md={10} lg={6} className=' mt-5'>
             <FeedPostCard />
@@ -40,7 +40,7 @@ const FeedComponennt = (props) => {
         </Row>
         <Row className='d-flex justify-content-center'>
           <Col sm={12} xs={12} md={10} lg={6} className=' mt-5'>
-            <ShowFeed feedList={props?.page ? feedList : myFeedList} />
+            <ShowFeed feedList={props.page ? feedList : myFeedList} />
           </Col>
         </Row>
       </Container>
