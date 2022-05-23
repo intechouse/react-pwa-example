@@ -6,8 +6,8 @@ import PageSetting from '../../components/Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
-import { fireBaseSignIn } from '../../services/auth';
 
+import { fireBaseSignIn } from '../../services/auth';
 import { auth } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 

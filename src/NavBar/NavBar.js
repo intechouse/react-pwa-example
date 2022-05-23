@@ -15,7 +15,7 @@ const NavBar = ({ children }) => {
   }, [logOut]);
 
   return (
-    <div>
+    <div >
       <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
         <Container>
           <Navbar.Brand

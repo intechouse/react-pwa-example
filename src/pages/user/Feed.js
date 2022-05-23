@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { MainLayout } from '../../components/Layout';
-import { Home } from '../../components/Home';
+import { FeedComponennt } from '../../components/FeedComponennt';
 
 function Feed() {
   return (
-    <MainLayout>
-      <Home />
-    </MainLayout>
+    <>
+      <MainLayout>
+        <FeedComponennt />
+      </MainLayout>
+    </>
   );
 }
 
