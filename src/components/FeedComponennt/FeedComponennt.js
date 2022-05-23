@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { collection, getDocs } from 'firebase/firestore';
+import { Container, Row, Col } from 'react-bootstrap';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase-config';
 import FeedPostCard from './FeedPostCard';
@@ -10,18 +9,18 @@ import ShowFeed from './ShowFeed';
 const FeedComponennt = () => {
   const [feedList, setFeedList] = useState([]);
 
-  // const getData = async () => {
-  //   let ls = [];
-  //   const querySnapshot = await getDocs(collection(db, 'feed'));
-  //   console.log('check');
-  //   querySnapshot.forEach((doc) => {
-  //     ls.push(doc.data().feed);
-  //   });
-  //   setFeedList(ls);
-  // };
+  const getData = async () => {
+    onSnapshot(query(collection(db, 'feed')), (querySnapshot) => {
+      const feeds = [];
+      querySnapshot.forEach((doc) => {
+        feeds.push(doc.data());
+      });
+      setFeedList(feeds);
+    });
+  };
 
   useEffect(() => {
-    //getData();
+    getData();
   }, []);
 
   return (
