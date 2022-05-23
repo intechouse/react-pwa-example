@@ -15,7 +15,7 @@ const NavBar = ({ children }) => {
   }, [logOut]);
 
   return (
-    <div >
+    <div className='navBar-position'>
       <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
         <Container>
           <Navbar.Brand
@@ -41,6 +41,13 @@ const NavBar = ({ children }) => {
                 }}
               >
                 Profile
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  navigate('/myfeed');
+                }}
+              >
+                My Feed
               </Nav.Link>
             </Nav>
             <Nav>

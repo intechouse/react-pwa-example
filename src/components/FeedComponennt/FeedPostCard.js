@@ -51,6 +51,7 @@ const FeedPostCard = () => {
               value={values.feed}
               as='textarea'
               rows={3}
+              required
             />
           </Card.Text>
           <Button type='submit' variant='primary'>

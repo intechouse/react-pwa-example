@@ -3,14 +3,14 @@ import React, { useEffect } from 'react';
 import { MainLayout } from '../../components/Layout';
 import { FeedComponennt } from '../../components/FeedComponennt';
 
-function Feed() {
+function MyFeed() {
   return (
     <>
       <MainLayout>
-        <FeedComponennt  page={true}/>
+        <FeedComponennt />
       </MainLayout>
     </>
   );
 }
 
-export default Feed;
+export default MyFeed;

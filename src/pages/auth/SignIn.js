@@ -35,6 +35,7 @@ const SignIn = () => {
             'userCredentials',
             `${response.user.uid} ${response.user.displayName} ${response.user.email}`
           );
+          localStorage.setItem('uid', `${response.user.uid}`);
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
