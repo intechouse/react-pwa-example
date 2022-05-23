@@ -10,19 +10,18 @@ import ShowFeed from './ShowFeed';
 const FeedComponennt = () => {
   const [feedList, setFeedList] = useState([]);
 
-  const getData = async () => {
-    let ls = [];
-    const querySnapshot = await getDocs(collection(db, 'feed'));
-    console.log('check');
-    querySnapshot.forEach((doc) => {
-      ls.push(doc.data().feed);
-    });
-    setFeedList(ls);
-  };
+  // const getData = async () => {
+  //   let ls = [];
+  //   const querySnapshot = await getDocs(collection(db, 'feed'));
+  //   console.log('check');
+  //   querySnapshot.forEach((doc) => {
+  //     ls.push(doc.data().feed);
+  //   });
+  //   setFeedList(ls);
+  // };
 
   useEffect(() => {
-    getData();
-    console.log('test');
+    //getData();
   }, []);
 
   return (

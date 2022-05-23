@@ -4,10 +4,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { collection, addDoc } from 'firebase/firestore';
 
-import { db } from '../../firebase-config';
+import { db, auth } from '../../firebase-config';
 
 const FeedPostCard = () => {
-  const [reload, setReload] = useState(true);
+  const [userId, setUserId] = useState();
   const validationSchema = Yup.object({
     feed: Yup.string().required('Required'),
   });
@@ -16,14 +16,17 @@ const FeedPostCard = () => {
     feed: '',
   };
 
+  useEffect(() => {
+    setUserId(localStorage.getItem('userCredentials'));
+  }, []);
   const onSubmit = (values) => {
-    console.log('fff');
     addDoc(collection(db, 'feed'), {
       feed: values.feed,
+      uid: userId.split` `[0],
+      name: userId.split` `[1],
+      email: userId.split` `[2],
     })
-      .then((data) => {
-        
-      })
+      .then((data) => {})
       .catch((e) => console.log('error'));
   };
 
