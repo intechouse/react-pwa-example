@@ -31,6 +31,10 @@ const SignIn = () => {
       fireBaseSignIn(auth, values.email, values.password)
         .then((response) => {
           navigate('/', { replace: true });
+          localStorage.setItem(
+            'userCredentials',
+            `${response.user.uid} ${response.user.displayName} ${response.user.email}`
+          );
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
@@ -45,15 +49,6 @@ const SignIn = () => {
   return (
     <PageSetting pageName='SignIn'>
       <form onSubmit={formik.handleSubmit}>
-        {/* <label htmlFor="email">Email Address</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        /> */}
         <Form.Control
           type='email'
           placeholder='Email'
@@ -67,15 +62,6 @@ const SignIn = () => {
           </div>
         ) : null}
 
-        {/* <label htmlFor="password">password Address</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-        /> */}
         <Form.Control
           type='password'
           placeholder='Password'
@@ -89,11 +75,6 @@ const SignIn = () => {
             {formik.errors.password}
           </div>
         ) : null}
-        {/* {signinMessage && (
-          <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
-            {signinMessage}
-          </div>
-        )} */}
 
         <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
           Sign In
