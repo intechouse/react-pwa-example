@@ -13,6 +13,7 @@ import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 const SignIn = () => {
   let navigate = useNavigate();
+   console.log('CurrentUser, Feed: ', auth.currentUser);
   const [signinMessage, setSigninpMessage] = useState('');
 
   const formik = useFormik({
@@ -31,15 +32,15 @@ const SignIn = () => {
       fireBaseSignIn(auth, values.email, values.password)
         .then((response) => {
           navigate('/', { replace: true });
-          localStorage.setItem(
-            'userCredentials',
-            `${response.user.uid} ${response.user.displayName} ${response.user.email}`
-          );
-          localStorage.setItem('uid', `${response.user.uid}`);
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
+          // localStorage.setItem(
+          //   'userCredentials',
+          //   `${response.user.uid} ${response.user.displayName} ${response.user.email}`
+          // );
+          // localStorage.setItem('uid', `${response.user.uid}`);
+          // sessionStorage.setItem(
+          //   'Auth Token',
+          //   response._tokenResponse.refreshToken
+          // );
         })
         .catch((error) => {
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
@@ -80,7 +81,7 @@ const SignIn = () => {
         <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
           Sign In
         </Button>
-        <a href='/register' className='d-flex justify-content-end'>
+        <a href='/auth/register' className='d-flex justify-content-end'>
           SignUp
         </a>
       </form>

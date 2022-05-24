@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
-import { db } from '../../firebase-config';
+import { db, auth } from '../../firebase-config';
 import FeedPostCard from './FeedPostCard';
 import ShowFeed from './ShowFeed';
 
@@ -17,7 +17,7 @@ const FeedComponennt = (props) => {
       const myFeeds = [];
       querySnapshot.forEach((doc) => {
         feeds.push(doc.data());
-        if (uid === doc.data()?.uid) {
+        if (auth.currentUser?.uid === doc.data()?.uid) {
           myFeeds.push(doc.data());
         }
       });

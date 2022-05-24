@@ -7,10 +7,11 @@ import swal from 'sweetalert';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { fireBaseSignUp } from '../../services/auth';
 
-import { auth } from '../../firebase-config';
+import { auth, db } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 import PageSetting from '../../components/Layout/PageSetting';
+import { addDoc, collection, setDoc } from 'firebase/firestore';
 
 const SignUp = () => {
   let navigate = useNavigate();
@@ -33,13 +34,24 @@ const SignUp = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
+      // // Save to database
+      // try {
+      //   await setDoc(collection(db, 'users', '1234567test5'), {
+      //     email: 't1@example.com',
+      //     name: 'User namne',
+      //     uid: 'somecustomid',
+      //     image: '',
+      //   });
+      // } catch (e) {
+      //   console.log('Error: ', e);
+      // }
       fireBaseSignUp(auth, values.name, values.email, values.password)
         .then((response) => {
-          navigate('/login', { replace: true });
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
+          // navigate('/login', { replace: true });
+          // sessionStorage.setItem(
+          //   'Auth Token',
+          //   response._tokenResponse.refreshToken
+          // );
         })
         .catch((error) => {
           setSignUpMessage(mapAuthCodeToMessage(error?.code));
@@ -95,7 +107,7 @@ const SignUp = () => {
           Sign Up
         </Button>
       </form>
-      <a href='/login' className='d-flex justify-content-end'>
+      <a href='/auth/login' className='d-flex justify-content-end'>
         Sign In
       </a>
     </PageSetting>

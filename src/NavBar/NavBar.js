@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase-config';
 
 const NavBar = ({ children }) => {
   let bool = true;
@@ -9,9 +10,9 @@ const NavBar = ({ children }) => {
   let authToken = sessionStorage.getItem('Auth Token');
 
   useEffect(() => {
-    if (!authToken) {
-      navigate('/login');
-    }
+    // if (!authToken) {
+    //   navigate('/login');
+    // }
   }, [logOut]);
 
   return (
@@ -20,7 +21,7 @@ const NavBar = ({ children }) => {
         <Container>
           <Navbar.Brand
             onClick={() => {
-              navigate('/feed');
+              navigate('/');
             }}
           >
             Icon
@@ -30,21 +31,21 @@ const NavBar = ({ children }) => {
             <Nav className='me-auto'>
               <Nav.Link
                 onClick={() => {
-                  navigate('/feed');
+                  navigate('/user/feed');
                 }}
               >
                 Feed
               </Nav.Link>
               <Nav.Link
                 onClick={() => {
-                  navigate('/profile');
+                  navigate('/user/profile');
                 }}
               >
                 Profile
               </Nav.Link>
               <Nav.Link
                 onClick={() => {
-                  navigate('/myfeed');
+                  navigate('/user/myfeed');
                 }}
               >
                 My Feed
@@ -54,15 +55,17 @@ const NavBar = ({ children }) => {
               <NavDropdown title='Settings' id='collasible-nav-dropdown'>
                 <NavDropdown.Item
                   onClick={() => {
-                    navigate('/password');
+                    navigate('/user/password');
                   }}
                 >
                   Password
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   onClick={() => {
-                    sessionStorage.removeItem('Auth Token');
-                    setLogOut(!bool);
+                    // sessionStorage.removeItem('Auth Token');
+                    // setLogOut(!bool);
+                    auth.signOut();
+                    navigate('/auth/login');
                   }}
                 >
                   Logout
