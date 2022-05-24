@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { MainLayout } from '../../components/Layout';
 import { FeedComponennt } from '../../components/FeedComponennt';
