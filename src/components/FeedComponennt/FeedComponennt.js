@@ -17,6 +17,7 @@ const FeedComponennt = (props) => {
       const myFeeds = [];
       querySnapshot.forEach((doc) => {
         feeds.push(doc.data());
+        // console.log('feeds', doc.data());
         if (auth.currentUser?.uid === doc.data()?.uid) {
           myFeeds.push(doc.data());
         }
@@ -29,7 +30,7 @@ const FeedComponennt = (props) => {
   useEffect(() => {
     getData();
   }, []);
-  console.log('Feed data', feedList);
+
   return (
     <>
       <Container className=' vh-100 ' fluid style={{ paddingTop: '50px' }}>

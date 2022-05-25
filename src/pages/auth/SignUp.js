@@ -34,17 +34,8 @@ const SignUp = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
-      // // Save to database
-      // try {
-      //   await setDoc(collection(db, 'users', '1234567test5'), {
-      //     email: 't1@example.com',
-      //     name: 'User namne',
-      //     uid: 'somecustomid',
-      //     image: '',
-      //   });
-      // } catch (e) {
-      //   console.log('Error: ', e);
-      // }
+      // Save to database
+     
       fireBaseSignUp(auth, values.name, values.email, values.password)
         .then((response) => {
           // navigate('/login', { replace: true });
@@ -57,6 +48,7 @@ const SignUp = () => {
           setSignUpMessage(mapAuthCodeToMessage(error?.code));
           signUpMessage && swal(signUpMessage);
         });
+        
     },
   });
   return (

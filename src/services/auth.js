@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-// import { addDoc, collection } from 'firebase/firestore';
-// import { db } from '../firebase-config';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase-config';
 
 export const fireBaseSignUp = (auth, name, email, password) =>
   new Promise((resolve, reject) => {
@@ -12,12 +12,12 @@ export const fireBaseSignUp = (auth, name, email, password) =>
           updateProfile(auth.currentUser, {
             displayName: name,
           });
-          // // Save to database
-          // addDoc(collection(db, 'users', 'testtesttest'), {
-          //   email: email,
-          //   name: name,
-          //   uid: auth.currentUser.uid,
-          // });
+          // Save to database
+          addDoc(collection(db, 'users'), {
+            email: email,
+            name: name,
+            uid: auth.currentUser.uid,
+          });
           resolve(data);
         } else {
           reject('Error');
