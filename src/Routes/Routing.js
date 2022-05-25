@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-
 import SignUp from './../pages/auth/SignUp';
 import SignIn from './../pages/auth/SignIn';
-import { Feed, Profile, Password, MyFeed, NotFoundPage } from '../pages';
+import {
+  Feed,
+  Profile,
+  Password,
+  MyFeed,
+  NotFoundPage,
+  UpdateProfile,
+} from '../pages';
+
 import { auth } from '../firebase-config';
 
 const Routing = () => {
@@ -43,6 +50,10 @@ const Routing = () => {
         <Route
           path='/user/profile'
           element={isLoggedIn ? <Profile /> : <NotFoundPage />}
+        />
+        <Route
+          path='/user/profile/update-profile'
+          element={isLoggedIn ? <UpdateProfile /> : <NotFoundPage />}
         />
         <Route
           path='/user/password'

@@ -2,12 +2,12 @@ import React from 'react';
 import ProfileComponent from '../../components/ProfileComponent/UserProfile';
 
 import { MainLayout } from '../../components/Layout';
-const Profile = () => {
+const UpdateProfile = () => {
   return (
     <MainLayout>
-      <ProfileComponent flag={true} />
+      <ProfileComponent />
     </MainLayout>
   );
 };
 
-export default Profile;
+export default UpdateProfile;
