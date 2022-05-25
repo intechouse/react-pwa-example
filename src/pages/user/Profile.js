@@ -4,7 +4,9 @@ import { MainLayout } from '../../components/Layout';
 const Profile = () => {
   return (
     <MainLayout>
-      <div>Profile</div>
+      <div>Prohhhfile</div>
+      <div>Prohhhfile</div>
+      <div>Prohhhfile</div>
     </MainLayout>
   );
 };

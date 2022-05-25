@@ -6,8 +6,8 @@ import PageSetting from '../../components/Layout/PageSetting';
 import { Form, Button } from 'react-bootstrap';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import swal from 'sweetalert';
-import { fireBaseSignIn } from '../../services/auth';
 
+import { fireBaseSignIn } from '../../services/auth';
 import { auth } from '../../firebase-config';
 import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
@@ -31,10 +31,15 @@ const SignIn = () => {
       fireBaseSignIn(auth, values.email, values.password)
         .then((response) => {
           navigate('/', { replace: true });
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
+          // localStorage.setItem(
+          //   'userCredentials',
+          //   `${response.user.uid} ${response.user.displayName} ${response.user.email}`
+          // );
+          // localStorage.setItem('uid', `${response.user.uid}`);
+          // sessionStorage.setItem(
+          //   'Auth Token',
+          //   response._tokenResponse.refreshToken
+          // );
         })
         .catch((error) => {
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
@@ -45,15 +50,6 @@ const SignIn = () => {
   return (
     <PageSetting pageName='SignIn'>
       <form onSubmit={formik.handleSubmit}>
-        {/* <label htmlFor="email">Email Address</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        /> */}
         <Form.Control
           type='email'
           placeholder='Email'
@@ -67,15 +63,6 @@ const SignIn = () => {
           </div>
         ) : null}
 
-        {/* <label htmlFor="password">password Address</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-        /> */}
         <Form.Control
           type='password'
           placeholder='Password'
@@ -89,16 +76,11 @@ const SignIn = () => {
             {formik.errors.password}
           </div>
         ) : null}
-        {/* {signinMessage && (
-          <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
-            {signinMessage}
-          </div>
-        )} */}
 
         <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
           Sign In
         </Button>
-        <a href='/register' className='d-flex justify-content-end'>
+        <a href='/auth/register' className='d-flex justify-content-end'>
           SignUp
         </a>
       </form>

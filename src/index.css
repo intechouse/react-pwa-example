@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.feed-card-header{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.feed-card-img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+}
+
+.navBar-position{
+  position: fixed;
+    z-index: 99;
+    width: -webkit-fill-available;
+}

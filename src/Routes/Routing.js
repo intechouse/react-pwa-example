@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
+
 
 import SignUp from './../pages/auth/SignUp';
 import SignIn from './../pages/auth/SignIn';
-import { Feed, Profile, Password } from '../pages';
+import { Feed, Profile, Password, MyFeed, NotFoundPage } from '../pages';
+import { auth } from '../firebase-config';
 
 const Routing = () => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Feed />} />
-        <Route path='/feed' element={<Feed />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/register' element={<SignUp />} />
-        <Route path='/login' element={<SignIn />} />
-        <Route path='/password' element={<Password />} />
+        <Route
+          path='/auth/register'
+          element={isLoggedIn ? <Feed /> : <SignUp />}
+        />
+        <Route
+          path='/auth/login'
+          element={isLoggedIn ? <Feed /> : <SignIn />}
+        />
+        <Route path='/' element={isLoggedIn ? <Feed /> : <NotFoundPage />} />
+        <Route
+          path='/user/feed'
+          element={isLoggedIn ? <Feed /> : <NotFoundPage />}
+        />
+        <Route
+          path='/user/myfeed'
+          element={isLoggedIn ? <MyFeed /> : <NotFoundPage />}
+        />
+        <Route
+          path='/user/profile'
+          element={isLoggedIn ? <Profile /> : <NotFoundPage />}
+        />
+        <Route
+          path='/user/password'
+          element={isLoggedIn ? <Password /> : <NotFoundPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
