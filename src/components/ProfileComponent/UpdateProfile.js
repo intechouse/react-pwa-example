@@ -20,8 +20,6 @@ import { db, auth } from '../../firebase-config';
 import { updateProfile } from 'firebase/auth';
 
 const UpdateProfile = ({ user }) => {
-  // console.log('auth.currentuser', auth.currentUser);
-
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -31,7 +29,7 @@ const UpdateProfile = ({ user }) => {
     validationSchema: Yup.object({
       name: Yup.string().required('Name required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       if (user) {
         updateProfile(auth.currentUser, {
           displayName: values.name,
@@ -42,9 +40,15 @@ const UpdateProfile = ({ user }) => {
         const querySnapshot = await getDocs(q);
         // querySnapshot.update('name', 'adnan1');
         querySnapshot.forEach((docx) => {
-          console.log('doc id', docx.id);
+          // const res = collection(db, 'users').docx?.id().update('name', 'asd');
+          const userRef = doc(db, 'users', docx.id);
+          const res = updateDoc(userRef, {
+            name: auth.currentUser.displayName,
+          });
+          // console.log('res:', res);
         });
       }
+      resetForm();
     },
   });
   return (
