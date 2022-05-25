@@ -7,7 +7,7 @@ export const fireBaseSignUp = (auth, name, email, password) =>
   new Promise((resolve, reject) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((data) => {
-        console.log('Auth, Current User: ', auth.currentUser);
+        // console.log('Auth, Current User: ', auth.currentUser);
         if (auth.currentUser) {
           updateProfile(auth.currentUser, {
             displayName: name,

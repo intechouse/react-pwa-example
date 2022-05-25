@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
-import { db, auth } from '../../firebase-config';
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  getDoc,
-} from 'firebase/firestore';
+import { db } from '../../firebase-config';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const FeedItem = ({ feedItem }) => {
-  const q = query(collection(db, 'users'), where('uid', '==', feedItem.uid));
   const [user, setUser] = useState(null);
-  console.log('query===>', q);
   const getData = async () => {
-    onSnapshot(
-      query(collection(db, 'users'), where('uid', '==', feedItem.uid)),
-      (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log('snapshot data => ', doc.data()?.uid);
-        });
-      }
-    );
+    const q = query(collection(db, 'users'), where('uid', '==', feedItem.uid));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      setUser(doc.data());
+    });
   };
 
   useEffect(() => {
     //   feedItem.uid
     // Load User data using the uid
-
     getData();
   }, [feedItem]);
 

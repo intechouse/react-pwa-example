@@ -13,7 +13,6 @@ import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 
 const SignIn = () => {
   let navigate = useNavigate();
-   console.log('CurrentUser, Feed: ', auth.currentUser);
   const [signinMessage, setSigninpMessage] = useState('');
 
   const formik = useFormik({
