@@ -22,6 +22,11 @@ const FeedItem = ({ feedItem }) => {
     // Load User data using the uid
     getData();
   }, [feedItem]);
+  useEffect(() => {
+    //   feedItem.uid
+    // Load User data using the uid
+    getData();
+  }, [user]);
 
   return (
     <Card className='mt-3'>
