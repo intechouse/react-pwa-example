@@ -43,9 +43,8 @@ const UpdateProfile = ({ user }) => {
           // const res = collection(db, 'users').docx?.id().update('name', 'asd');
           const userRef = doc(db, 'users', docx.id);
           const res = updateDoc(userRef, {
-            name: auth.currentUser.displayName,
+            name: values.name,
           });
-          // console.log('res:', res);
         });
       }
       resetForm();
