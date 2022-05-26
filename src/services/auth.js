@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, set } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
 export const fireBaseSignUp = (auth, name, email, password) =>
@@ -18,6 +18,7 @@ export const fireBaseSignUp = (auth, name, email, password) =>
             name: name,
             uid: auth.currentUser.uid,
           });
+
           resolve(data);
         } else {
           reject('Error');

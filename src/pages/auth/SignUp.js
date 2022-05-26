@@ -35,20 +35,13 @@ const SignUp = () => {
     }),
     onSubmit: async (values) => {
       // Save to database
-     
+
       fireBaseSignUp(auth, values.name, values.email, values.password)
-        .then((response) => {
-          // navigate('/login', { replace: true });
-          // sessionStorage.setItem(
-          //   'Auth Token',
-          //   response._tokenResponse.refreshToken
-          // );
-        })
+        .then((response) => {})
         .catch((error) => {
           setSignUpMessage(mapAuthCodeToMessage(error?.code));
           signUpMessage && swal(signUpMessage);
         });
-        
     },
   });
   return (
