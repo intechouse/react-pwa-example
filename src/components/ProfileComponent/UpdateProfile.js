@@ -20,6 +20,10 @@ import { db, auth } from '../../firebase-config';
 import { updateProfile } from 'firebase/auth';
 
 const UpdateProfile = ({ user }) => {
+  let navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -30,6 +34,7 @@ const UpdateProfile = ({ user }) => {
       name: Yup.string().required('Name required'),
     }),
     onSubmit: async (values, { resetForm }) => {
+      setLoading(true);
       if (user) {
         updateProfile(auth.currentUser, {
           displayName: values.name,
@@ -45,8 +50,10 @@ const UpdateProfile = ({ user }) => {
           const res = updateDoc(userRef, {
             name: values.name,
           });
+          navigate('/user/profile', { replace: true });
         });
       }
+      setLoading(false);
       resetForm();
     },
   });
@@ -78,8 +85,13 @@ const UpdateProfile = ({ user }) => {
             disabled
           />
 
-          <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
+          <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
             Submit
+            {loading && (
+              <div class='spinner-border spinner-border-sm ms-2' role='status'>
+                <span class='visually-hidden'>Loading...</span>
+              </div>
+            )}
           </Button>
         </form>
       </Card.Body>

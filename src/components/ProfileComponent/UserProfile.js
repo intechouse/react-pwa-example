@@ -11,25 +11,6 @@ const ProfileComponent = (props) => {
   const [myFeedList, setMyFeedList] = useState([]);
 
   const user = auth?.currentUser;
-  //   const getData = async () => {
-  //     onSnapshot(query(collection(db, 'feed')), (querySnapshot) => {
-  //       const feeds = [];
-  //       const myFeeds = [];
-  //       querySnapshot.forEach((doc) => {
-  //         feeds.push(doc.data());
-  //         // console.log('feeds', doc.data());
-  //         if (auth.currentUser?.uid === doc.data()?.uid) {
-  //           myFeeds.push(doc.data());
-  //         }
-  //       });
-  //       setFeedList(feeds);
-  //       setMyFeedList(myFeeds);
-  //     });
-  //   };
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
 
   return (
     <>
