@@ -29,3 +29,12 @@ code {
     z-index: 99;
     width: -webkit-fill-available;
 }
+
+.auth-btn{
+  min-width: 130px;
+  max-width: 130px;
+  padding:10px 0px !important;
+}
+.profile-btn{
+  padding: 10px 0px !important;
+}

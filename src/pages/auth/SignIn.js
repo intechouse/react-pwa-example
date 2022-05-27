@@ -14,6 +14,7 @@ import mapAuthCodeToMessage from '../../common/ErrorMessages/errorMessage';
 const SignIn = () => {
   let navigate = useNavigate();
   const [signinMessage, setSigninpMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -28,9 +29,11 @@ const SignIn = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     }),
     onSubmit: async (values) => {
+      setLoading(true);
       fireBaseSignIn(auth, values.email, values.password)
         .then((response) => {
           navigate('/', { replace: true });
+          setLoading(false);
           // localStorage.setItem(
           //   'userCredentials',
           //   `${response.user.uid} ${response.user.displayName} ${response.user.email}`
@@ -43,6 +46,7 @@ const SignIn = () => {
         })
         .catch((error) => {
           setSigninpMessage(mapAuthCodeToMessage(error?.code));
+          setLoading(false);
           signinMessage && swal(signinMessage);
         });
     },
@@ -77,8 +81,13 @@ const SignIn = () => {
           </div>
         ) : null}
 
-        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
+        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
           Sign In
+          {loading && (
+            <div class='spinner-border spinner-border-sm ms-2' role='status'>
+              <span class='visually-hidden'>Loading...</span>
+            </div>
+          )}
         </Button>
         <a href='/auth/register' className='d-flex justify-content-end'>
           SignUp

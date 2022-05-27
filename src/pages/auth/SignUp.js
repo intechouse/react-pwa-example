@@ -16,6 +16,7 @@ import { addDoc, collection, setDoc } from 'firebase/firestore';
 const SignUp = () => {
   let navigate = useNavigate();
   const [signUpMessage, setSignUpMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -35,11 +36,15 @@ const SignUp = () => {
     }),
     onSubmit: async (values) => {
       // Save to database
+      setLoading(true);
 
       fireBaseSignUp(auth, values.name, values.email, values.password)
-        .then((response) => {})
+        .then((response) => {
+          setLoading(false);
+        })
         .catch((error) => {
           setSignUpMessage(mapAuthCodeToMessage(error?.code));
+          setLoading(false);
           signUpMessage && swal(signUpMessage);
         });
     },
@@ -88,8 +93,13 @@ const SignUp = () => {
           </div>
         ) : null}
 
-        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4'>
+        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
           Sign Up
+          {loading && (
+            <div class='spinner-border spinner-border-sm ms-2' role='status'>
+              <span class='visually-hidden'>Loading...</span>
+            </div>
+          )}
         </Button>
       </form>
       <a href='/auth/login' className='d-flex justify-content-end'>

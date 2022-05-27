@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row, Card, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { updatePassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 import { auth } from '../../firebase-config';
 import { MainLayout } from '../../components/Layout';
 
 const Password = () => {
   const user = auth.currentUser;
+  let navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -27,11 +30,15 @@ const Password = () => {
         .oneOf([Yup.ref('password'), null], 'Passwords must match'),
     }),
     onSubmit: async (values) => {
+      setLoading(true);
       updatePassword(user, values.password)
         .then((s) => {
           console.log(s);
+          setLoading(false);
+          navigate('/', { replace: true });
         })
         .catch((error) => {
+          setLoading(false);
           console.log(error);
         });
     },
@@ -93,7 +100,17 @@ const Password = () => {
                 </Row>
 
                 <Col className='mt-5'>
-                  <Button type='submit'>update Password</Button>
+                  <Button type='submit'>
+                    Update Password
+                    {loading && (
+                      <div
+                        class='spinner-border spinner-border-sm ms-2'
+                        role='status'
+                      >
+                        <span class='visually-hidden'>Loading...</span>
+                      </div>
+                    )}
+                  </Button>
                 </Col>
               </form>
             </Card.Body>

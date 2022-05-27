@@ -7,6 +7,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db, auth } from '../../firebase-config';
 
 const FeedPostCard = () => {
+  const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState();
   const validationSchema = Yup.object({
     feed: Yup.string().required('Required'),
@@ -20,12 +21,18 @@ const FeedPostCard = () => {
     setUserId(localStorage.getItem('userCredentials'));
   }, []);
   const onSubmit = (values, { resetForm }) => {
+    setLoading(true);
     addDoc(collection(db, 'feed'), {
       feed: values.feed,
       uid: auth.currentUser.uid,
     })
-      .then((data) => {})
-      .catch((e) => console.log('error'));
+      .then((data) => {
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log('error');
+        setLoading(false);
+      });
     resetForm();
   };
 
@@ -53,8 +60,13 @@ const FeedPostCard = () => {
               required
             />
           </Card.Text>
-          <Button type='submit' variant='primary'>
+          <Button type='submit' variant='primary' className='auth-btn'>
             POST
+            {loading && (
+              <div class='spinner-border spinner-border-sm ms-2' role='status'>
+                <span class='visually-hidden'>Loading...</span>
+              </div>
+            )}
           </Button>
         </form>
       </Card.Body>

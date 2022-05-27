@@ -12,19 +12,17 @@ const ProfileCard = ({ user }) => {
   return (
     <Card className='mt-3'>
       <Card.Body>
-        {/* <div className='feed-card-header'>
-          <img
-            src=' https://img.freepik.com/free-photo/pleasant-lookin…ears-casual-white-t-shirt_273609-16959.jpg?w=2000'
-            className='feed-card-img'
-            alt='...'
-          ></img>
-          <Card.Title className='ms-3'>{user.name}</Card.Title>
-        </div> */}
-        <Card.Text className='mt-3 ms-2'>Name : {user?.displayName}</Card.Text>
-        <Card.Text className='mt-3 ms-2'>Email : {user?.email}</Card.Text>
+        <Card.Text className='mt-3 ms-2'>
+          <strong>Name :</strong> {user?.displayName}
+        </Card.Text>
+        <hr />
+        <Card.Text className='mt-3 ms-2'>
+          <strong>Email :</strong> {user?.email}
+        </Card.Text>
+        <hr />
         <Button
           onClick={() => navigate('/user/profile/update-profile')}
-          className='mt-3 ps-sm-4 pe-sm-4'
+          className='mt-3 ps-sm-4 pe-sm-4  profile-btn'
         >
           Update Profile
         </Button>
