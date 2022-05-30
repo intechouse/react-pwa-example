@@ -63,6 +63,7 @@ const Password = () => {
                       name='password'
                       value={formik.values.password}
                       className='mt-3'
+                      disabled={loading}
                     />
                     {formik.touched.password && formik.errors.password ? (
                       <div
@@ -82,6 +83,7 @@ const Password = () => {
                       name='confirmPassword'
                       value={formik.values.confirmPassword}
                       className='mt-3'
+                      disabled={loading}
                     />
                     {formik.touched.confirmPassword &&
                     formik.errors.confirmPassword ? (
@@ -100,7 +102,7 @@ const Password = () => {
                 </Row>
 
                 <Col className='mt-5'>
-                  <Button type='submit'>
+                  <Button type='submit' disabled={loading}>
                     Update Password
                     {loading && (
                       <div

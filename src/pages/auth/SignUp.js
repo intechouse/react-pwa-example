@@ -58,6 +58,7 @@ const SignUp = () => {
           onChange={formik.handleChange}
           name='name'
           value={formik.values.name}
+          disabled={loading}
         />
         {formik.touched.name && formik.errors.name ? (
           <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
@@ -71,6 +72,7 @@ const SignUp = () => {
           name='email'
           value={formik.values.email}
           className='mt-3'
+          disabled={loading}
         />
 
         {formik.touched.email && formik.errors.email ? (
@@ -85,6 +87,7 @@ const SignUp = () => {
           name='password'
           value={formik.values.password}
           className='mt-3'
+          disabled={loading}
         />
 
         {formik.touched.password && formik.errors.password ? (
@@ -93,7 +96,11 @@ const SignUp = () => {
           </div>
         ) : null}
 
-        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
+        <Button
+          type='submit'
+          className='mt-3 ps-sm-4 pe-sm-4 auth-btn'
+          disabled={loading}
+        >
           Sign Up
           {loading && (
             <div class='spinner-border spinner-border-sm ms-2' role='status'>

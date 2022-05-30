@@ -67,6 +67,7 @@ const UpdateProfile = ({ user }) => {
             onChange={formik.handleChange}
             name='name'
             value={formik.values.name}
+            disabled={loading}
 
             // value={user?.displayName}
           />
@@ -85,7 +86,11 @@ const UpdateProfile = ({ user }) => {
             disabled
           />
 
-          <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
+          <Button
+            type='submit'
+            className='mt-3 ps-sm-4 pe-sm-4 auth-btn'
+            disabled={loading}
+          >
             Submit
             {loading && (
               <div class='spinner-border spinner-border-sm ms-2' role='status'>

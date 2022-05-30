@@ -57,10 +57,26 @@ const FeedPostCard = () => {
               value={values.feed}
               as='textarea'
               rows={3}
-              required
+              disabled={loading}
             />
+            {formik.touched.feed && formik.errors.feed ? (
+              <div
+                style={{
+                  color: 'red',
+                  marginTop: '8px',
+                  fontSize: '13px',
+                }}
+              >
+                {formik.errors.feed}
+              </div>
+            ) : null}
           </Card.Text>
-          <Button type='submit' variant='primary' className='auth-btn'>
+          <Button
+            type='submit'
+            variant='primary'
+            className='auth-btn'
+            disabled={loading}
+          >
             POST
             {loading && (
               <div class='spinner-border spinner-border-sm ms-2' role='status'>
