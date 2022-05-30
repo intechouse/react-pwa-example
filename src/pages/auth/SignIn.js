@@ -60,6 +60,7 @@ const SignIn = () => {
           onChange={formik.handleChange}
           name='email'
           value={formik.values.email}
+          disabled={loading}
         />
         {formik.touched.email && formik.errors.email ? (
           <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
@@ -74,6 +75,7 @@ const SignIn = () => {
           name='password'
           value={formik.values.password}
           className='mt-3'
+          disabled={loading}
         />
         {formik.touched.password && formik.errors.password ? (
           <div style={{ color: 'red', marginTop: '8px', fontSize: '13px' }}>
@@ -81,7 +83,11 @@ const SignIn = () => {
           </div>
         ) : null}
 
-        <Button type='submit' className='mt-3 ps-sm-4 pe-sm-4 auth-btn'>
+        <Button
+          type='submit'
+          className='mt-3 ps-sm-4 pe-sm-4 auth-btn'
+          disabled={loading}
+        >
           Sign In
           {loading && (
             <div class='spinner-border spinner-border-sm ms-2' role='status'>
