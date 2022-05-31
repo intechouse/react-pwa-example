@@ -45,17 +45,14 @@ const Password = () => {
   });
   return (
     <MainLayout>
-      <Row>
-        <Col className='mt-5 ' sm={3} xs={3}></Col>
-        <Col className='mt-5 ' sm={6} xs={6}>
+      <Row className='d-flex justify-content-center '>
+        <Col className='mt-5 ' sm={11} xs={11} md={10} lg={6}>
           <Card className='mt-5'>
             <Card.Body>
               <Card.Title>Change password</Card.Title>
               <form onSubmit={formik.handleSubmit}>
-                <Row>
-                  <Col sm={2} xs={2}></Col>
-                  <Col sm={8} xs={8}>
-                    {' '}
+                <Row className='d-flex justify-content-center'>
+                  <Col sm={8} xs={10} className=''>
                     <Form.Control
                       type='password'
                       placeholder='Password'
@@ -98,7 +95,6 @@ const Password = () => {
                       </div>
                     ) : null}
                   </Col>
-                  <Col sm={2} xs={2}></Col>
                 </Row>
 
                 <Col className='mt-5'>
@@ -118,7 +114,6 @@ const Password = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col className='mt-5 ' sm={3} xm={3}></Col>
       </Row>
     </MainLayout>
   );
